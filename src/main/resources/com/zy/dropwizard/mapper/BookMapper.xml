@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.dropwizard.mapper.BookMapper" >
+    <resultMap id="BaseResultMap" type="com.zy.dropwizard.domain.Book">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id , `name` , price ,create_time , update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from book
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.zy.dropwizard.domain.Book">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into book (`name`, price, create_time, update_time)
+        values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+
+</mapper>

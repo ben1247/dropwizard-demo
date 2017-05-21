@@ -1,0 +1,53 @@
+# demo
+template: Hello, %s!
+defaultName: Stranger
+
+# server
+server:
+  adminMinThreads: 1
+  adminMaxThreads: 64
+  applicationContextPath: /dropwizard-demo
+  adminContextPath: /dropwizard-demo-admin
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+  gzip:
+    enabled: true
+
+# spring config
+spring:
+  contextConfigLocation: classpath:applicationContext.xml
+
+# Database settings.
+database:
+  driverClass: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/dropwizarddemo?allowMultiQueries=true&useUnicode=true&characterEncoding=utf8
+  user: root
+  password: root
+  minSize: 10
+  maxSize: 100
+
+# migration
+migration:
+  profile: development
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  # Logger-specific levels.
+  loggers:
+    com.zy.dropwizard: INFO
+  appenders:
+    - type: console
+    - type: file
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: /tmp/dropwizard-demo.log
+      archivedLogFilenamePattern: /tmp/dropwizard-demo-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+      maxFileSize: 1000MB
