@@ -1,6 +1,10 @@
 package com.zy.dropwizard.mapper;
 
 import com.zy.dropwizard.domain.Book;
+import com.zy.dropwizard.model.BookSearch;
+import com.zy.dropwizard.resource.request.BookSearchRequest;
+
+import java.util.List;
 
 /**
  * Component:
@@ -13,6 +17,9 @@ public interface BookMapper {
 
     Book selectByPrimaryKey(Long id);
 
-    int insert(Book book);
+    Integer insert(Book book);
 
+    Integer selectCountBySearch(BookSearch search);
+
+    List<Book> selectBySearch(BookSearch search);
 }

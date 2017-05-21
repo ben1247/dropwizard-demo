@@ -27,5 +27,34 @@
         values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
 
+    <select id="selectCountBySearch"
+            parameterType="com.zy.dropwizard.model.BookSearch"
+            resultType="java.lang.Integer">
+      SELECT count(id)
+      FROM book
+      <where>
+          <if test="name != null">
+              and name LIKE CONCAT( CONCAT('%', #{name} ), '%' )
+          </if>
+      </where>
+    </select>
+
+    <select id="selectBySearch"
+            parameterType="com.zy.dropwizard.model.BookSearch"
+            resultType="com.zy.dropwizard.domain.Book">
+        SELECT
+          <include refid="Base_Column_List" />
+        FROM book
+        <where>
+            <if test="name != null">
+                and name LIKE CONCAT( CONCAT('%', #{name} ), '%' )
+            </if>
+        </where>
+        ORDER BY id DESC
+        <if test="pageNum != null">
+            LIMIT #{offset} , #{pageSize}
+        </if>
+    </select>
+
 
 </mapper>

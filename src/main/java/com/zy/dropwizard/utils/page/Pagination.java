@@ -24,6 +24,10 @@ public class Pagination<E> {
 
     private Integer totals;
 
+    public Pagination(){
+
+    }
+
     public Pagination(List<E> list, Integer pageNum, Integer pageSize, Integer totals) {
         this.list = list;
         this.pageNum = pageNum;
