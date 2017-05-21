@@ -2,7 +2,6 @@ package com.zy.dropwizard.mapper;
 
 import com.zy.dropwizard.domain.Book;
 import com.zy.dropwizard.model.BookSearch;
-import com.zy.dropwizard.resource.request.BookSearchRequest;
 
 import java.util.List;
 
