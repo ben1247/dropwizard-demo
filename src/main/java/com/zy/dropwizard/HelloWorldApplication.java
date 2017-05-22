@@ -78,7 +78,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
 
     private void setupResource(final HelloWorldConfiguration configuration,final Environment environment){
         environment.jersey().register(new TemplateResource(configuration.getTemplate(),configuration.getDefaultName()));
-        environment.jersey().packages("com.zy.dropwizard");
+        environment.jersey().packages("com.zy.dropwizard.resource");
     }
 
     /**
