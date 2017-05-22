@@ -1,4 +1,4 @@
-package com.zy.dropwizard.resource.response;
+package com.zy.dropwizard.model;
 
 /**
  * Component: 需要过滤器处理

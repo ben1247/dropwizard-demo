@@ -1,7 +1,7 @@
 package com.zy.dropwizard.resource;
 
 import com.codahale.metrics.annotation.Timed;
-import com.zy.dropwizard.resource.response.Saying;
+import com.zy.dropwizard.model.Saying;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

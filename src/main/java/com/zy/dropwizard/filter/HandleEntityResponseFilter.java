@@ -1,6 +1,6 @@
 package com.zy.dropwizard.filter;
 
-import com.zy.dropwizard.resource.response.HandleEntityResponse;
+import com.zy.dropwizard.model.HandleEntityResponse;
 import com.zy.dropwizard.utils.JsonUtil;
 
 import javax.annotation.Priority;

@@ -1,4 +1,4 @@
-package com.zy.dropwizard.resource.response;
+package com.zy.dropwizard.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
