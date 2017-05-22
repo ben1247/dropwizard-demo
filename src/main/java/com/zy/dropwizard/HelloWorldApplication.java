@@ -2,6 +2,7 @@ package com.zy.dropwizard;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zy.dropwizard.filter.SetStatusCodeResponseFilter;
 import com.zy.dropwizard.utils.ClasspathOrFileConfigurationSourceProvider;
 import com.zy.dropwizard.config.HelloWorldConfiguration;
 import com.zy.dropwizard.config.cons.App;
@@ -93,7 +94,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
 
     private void setupFilter(final Environment environment){
 //        environment.jersey().register(new HandleEntityResponseFilter());
-        environment.jersey().register(new HandleEntityRequestFilter());
+//        environment.jersey().register(new HandleEntityRequestFilter());
+        environment.jersey().register(new SetStatusCodeResponseFilter());
     }
 
     private void setupApp(final HelloWorldConfiguration configuration){
