@@ -1,5 +1,6 @@
 package com.zy.dropwizard;
 
+import com.alibaba.druid.support.http.StatViewServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zy.dropwizard.utils.ClasspathOrFileConfigurationSourceProvider;
 import com.zy.dropwizard.config.HelloWorldConfiguration;
@@ -118,5 +119,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
         servlet.setInitParameter("contextConfigLocation", configuration.getSpring().getContextConfigLocation());
         servlet.addServletListeners(new ContextLoaderListener(), new RequestContextListener());
 
+        // Druid的内置监控页面
+        servlet.addServlet("DruidStatView",StatViewServlet.class).addMapping("/druid/*");
     }
 }

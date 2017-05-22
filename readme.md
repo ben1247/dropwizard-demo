@@ -35,4 +35,11 @@ servlet.addServletListeners(new ContextLoaderListener(), new RequestContextListe
 11. jersey和spring整合 <br />
 答：引入pom依赖"jersey-spring3" <br />           
 
+12. druid监控 <br />
+答：
+servlet.addServlet("DruidStatView",StatViewServlet.class).addMapping("/druid/*");  <br />
+访问地址：http://127.0.0.1:8080/dropwizard-demo/druid/index.html
+
+13. 异常统一处理
+
 X. testng整合
