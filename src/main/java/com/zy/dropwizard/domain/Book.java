@@ -2,6 +2,7 @@ package com.zy.dropwizard.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
  */
 @Setter
 @Getter
+@ToString
 public class Book {
     private Long id;
     @NotEmpty
