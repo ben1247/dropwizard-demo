@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="dropwizard-demo" parallel="false" >
+
+    <test name="example1" verbose="1" annotations="JDK">
+
+        <parameter name="pageNum" value="1" />
+        <parameter name="pageSize" value="10" />
+
+        <classes>
+            <class name="com.zy.dropwizard.testngdemo.SimpleTest" />
+        </classes>
+
+    </test>
+</suite>

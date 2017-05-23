@@ -40,6 +40,10 @@ servlet.addServletListeners(new ContextLoaderListener(), new RequestContextListe
 servlet.addServlet("DruidStatView",StatViewServlet.class).addMapping("/druid/*");  <br />
 访问地址：http://127.0.0.1:8080/dropwizard-demo/druid/index.html
 
-13. 异常统一处理
+13. testng整合
 
-X. testng整合
+
+14. 异常统一处理 <br />
+答：可参考shuyun-support-common的exception包
+
+X. 使用spring AOP <br />
