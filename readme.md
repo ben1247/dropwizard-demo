@@ -44,9 +44,9 @@ servlet.addServlet("DruidStatView",StatViewServlet.class).addMapping("/druid/*")
 访问地址：http://127.0.0.1:8080/dropwizard-demo/druid/index.html
 
 13. testng整合 <br />
-答：可参考 SimpleTest.java 和 BookServiceTest.java
+答：SimpleTest.java 和 BookServiceTest.java
 
 14. 异常统一处理 <br />
-答：可参考shuyun-support-common的exception包
+答：exception包
 
-X. 使用spring AOP <br />
+15. 使用spring AOP ＋ redis <br />
