@@ -4,7 +4,7 @@ import com.zy.dropwizard.domain.Book;
 import com.zy.dropwizard.mapper.BookMapper;
 import com.zy.dropwizard.model.BookSearch;
 import com.zy.dropwizard.utils.DateUtil;
-import com.zy.dropwizard.utils.page.Pagination;
+import com.zy.dropwizard.base.page.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,5 +52,9 @@ public class BookService {
         List<Book> bookList = bookMapper.selectBySearch(search);
 
         return new Pagination<>(bookList, pageNum, pageSize, totalCount);
+    }
+
+    public void delete(long id) {
+        log.info("BookService delete, id: {}" , id);
     }
 }

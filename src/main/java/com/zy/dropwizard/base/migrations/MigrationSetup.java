@@ -1,4 +1,4 @@
-package com.zy.dropwizard.utils.migrations;
+package com.zy.dropwizard.base.migrations;
 
 import com.zy.dropwizard.config.cons.App;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;

@@ -1,18 +1,20 @@
 package com.zy.dropwizard;
 
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.codahale.metrics.health.HealthCheckRegistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zy.dropwizard.base.ClasspathOrFileConfigurationSourceProvider;
 import com.zy.dropwizard.config.HelloWorldConfiguration;
 import com.zy.dropwizard.config.cons.App;
 import com.zy.dropwizard.config.props.DatabaseProperties;
 import com.zy.dropwizard.config.props.MigrationProperties;
+import com.zy.dropwizard.exception.mapper.BaseExceptionMapper;
 import com.zy.dropwizard.filter.SetStatusCodeResponseFilter;
 import com.zy.dropwizard.health.TemplateHealthCheck;
-import com.zy.dropwizard.resource.TemplateResource;
-import com.zy.dropwizard.utils.ClasspathOrFileConfigurationSourceProvider;
 import com.zy.dropwizard.utils.JsonUtil;
-import com.zy.dropwizard.utils.migrations.MigrationSetupFactory;
+import com.zy.dropwizard.base.migrations.MigrationSetupFactory;
 import io.dropwizard.Application;
+import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.jetty.setup.ServletEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -56,9 +58,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
     public void run(HelloWorldConfiguration configuration, Environment environment) throws Exception {
         setupApp(configuration);
         executeMigration();
-        setupHealthCheck(configuration,environment);
-        setupResource(configuration,environment);
-        setupFilter(environment);
+        setupHealthCheck(configuration,environment.healthChecks());
+        setupResource(environment.jersey());
+        setupFilter(environment.jersey());
+        setupExceptionMapper(environment.jersey());
         setupServletEnvironment(configuration,environment.servlets());
         // 开启文件上传组件
         environment.jersey().register(MultiPartFeature.class);
@@ -76,29 +79,28 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
         }
     }
 
-    private void setupResource(final HelloWorldConfiguration configuration,final Environment environment){
-        environment.jersey().register(new TemplateResource(configuration.getTemplate(),configuration.getDefaultName()));
-        environment.jersey().packages("com.zy.dropwizard.resource");
+    private void setupResource(final JerseyEnvironment jersey){
+        jersey.packages("com.zy.dropwizard.resource");
     }
 
     /**
      * 注册健康检查
      * 访问地址：http://127.0.0.1:8081/dropwizard-demo-admin/healthcheck
      * @param configuration
-     * @param environment
+     * @param health
      */
-    private void setupHealthCheck(final HelloWorldConfiguration configuration, final Environment environment){
-        environment.healthChecks().register("template",new TemplateHealthCheck(configuration.getTemplate()));
+    private void setupHealthCheck(final HelloWorldConfiguration configuration, final HealthCheckRegistry health){
+        health.register("template",new TemplateHealthCheck(configuration.getTemplate()));
     }
 
-    private void setupFilter(final Environment environment){
-//        environment.jersey().register(new HandleEntityResponseFilter());
-//        environment.jersey().register(new HandleEntityRequestFilter());
-        environment.jersey().register(new SetStatusCodeResponseFilter());
+    private void setupFilter(final JerseyEnvironment jersey){
+//        jersey.register(new HandleEntityResponseFilter());
+//        jersey.register(new HandleEntityRequestFilter());
+        jersey.register(new SetStatusCodeResponseFilter());
     }
 
     private void setupApp(final HelloWorldConfiguration configuration){
-        // 数据库配置
+        // 数据库
         DatabaseProperties database = configuration.getDatabase();
         App.setDbDriverClass(database.getDriverClass());
         App.setDbUrl(database.getUrl());
@@ -122,5 +124,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration>{
 
         // Druid的内置监控页面
         servlet.addServlet("DruidStatView",StatViewServlet.class).addMapping("/druid/*");
+    }
+
+    /**
+     * 设置异常处理
+     * @param jersey
+     */
+    private void setupExceptionMapper(final JerseyEnvironment jersey){
+        jersey.register(BaseExceptionMapper.instance);
     }
 }

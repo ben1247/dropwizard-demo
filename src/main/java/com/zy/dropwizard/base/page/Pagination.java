@@ -1,4 +1,4 @@
-package com.zy.dropwizard.utils.page;
+package com.zy.dropwizard.base.page;
 
 import lombok.Getter;
 import lombok.Setter;

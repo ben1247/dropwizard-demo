@@ -1,6 +1,6 @@
 package com.zy.dropwizard.model;
 
-import com.zy.dropwizard.utils.page.Page;
+import com.zy.dropwizard.base.page.Page;
 import lombok.Getter;
 import lombok.Setter;
 

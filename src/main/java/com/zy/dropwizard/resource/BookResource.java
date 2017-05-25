@@ -1,8 +1,9 @@
 package com.zy.dropwizard.resource;
 
+import com.zy.dropwizard.base.page.Pagination;
 import com.zy.dropwizard.domain.Book;
+import com.zy.dropwizard.exception.WrongBusinessException;
 import com.zy.dropwizard.service.BookService;
-import com.zy.dropwizard.utils.page.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,6 +45,17 @@ public class BookResource {
             @DefaultValue("1") @QueryParam("pageNum") Integer pageNum,
             @DefaultValue("10") @QueryParam("pageSize") Integer pageSize){
         return bookService.select(name,pageNum,pageSize);
+    }
+
+    @Path("{id}")
+    @DELETE
+    public Book delete(@PathParam("id") long id){
+        Book book = bookService.get(id);
+        if(book == null){
+            throw new WrongBusinessException("not_found_book","找不到指定的书籍");
+        }
+        bookService.delete(id);
+        return book;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zy.dropwizard.utils.migrations;
+package com.zy.dropwizard.base.migrations;
 
 /**
  * Component: migration启动工厂类

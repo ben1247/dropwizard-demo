@@ -1,4 +1,4 @@
-package com.zy.dropwizard.utils;
+package com.zy.dropwizard.base;
 
 import io.dropwizard.configuration.ConfigurationSourceProvider;
 import io.dropwizard.configuration.FileConfigurationSourceProvider;
